@@ -27,7 +27,9 @@ def carrega_imagem():
         if image.mode != "RGB":
             image = image.convert("RGB")
 
-        st.image(image)
+        image = image.resize((256, 256))
+
+        st.image(image, caption="Imagem redimensionada para 256x256")
         st.success('Imagem foi carregada com sucesso')
 
         # Converter para array NumPy com normalização
