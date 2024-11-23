@@ -10,9 +10,9 @@ import plotly.express as px
 @st.cache_resource
 def carrega_modelo():
     #https://drive.google.com/file/d/1xUC6UZkvxm6l4Lspy24JHJkNfYiYXZYJ/view?usp=drive_link
-    url = 'https://drive.google.com/file/d/1xUC6UZkvxm6l4Lspy24JHJkNfYiYXZYJ/view?usp=drive_link'
-    gdown.download(url, 'modelo_carros.tflite')
-    interpreter = tf.lite.Interpreter(model_path='modelo_carros.tflite')
+    url = 'https://drive.google.com/uc?id=1xUC6UZkvxm6l4Lspy24JHJkNfYiYXZYJ'
+    gdown.download(url, 'modelo_carros.keras')
+    interpreter = tf.lite.Interpreter(model_path='modelo_carros.keras')
     interpreter.allocate_tensors()
     return interpreter
 
