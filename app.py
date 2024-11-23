@@ -58,7 +58,8 @@ def main():
     interpreter = carrega_modelo()
     image = carrega_imagem()
     
-    previsao(interpreter,image)
+    if image is not None:
+        previsao(interpreter,image)
 
 if __name__ == "__main__":
     main()
