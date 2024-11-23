@@ -34,7 +34,7 @@ def carrega_imagem():
 
 def previsao(interpreter,image):
 
-    input_details = interpreter.get_input_details()[0]
+    input_details = interpreter.get_input_details()
     output_details = interpreter.get_output_details()
     
     interpreter.set_tensor(input_details['index'],image) 
