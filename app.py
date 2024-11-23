@@ -6,6 +6,7 @@ from PIL import Image
 import numpy as np
 import pandas as pd
 import plotly.express as px
+import torch
 
 @st.cache_resource
 def carrega_modelo():
@@ -34,14 +35,14 @@ def carrega_imagem():
 
 def previsao(interpreter,image):
 
-    input_details = interpreter.get_input_details()
-    output_details = interpreter.get_output_details()
+    input_tensor = torch.from_numpy(image)
+    output_tensor = interpreter.forward(input_tensor)[0]
     
-    interpreter.set_tensor(input_details[0]['index'],image) 
+    interpreter.set_tensor(input_tensor[0]['index'],image) 
     
     interpreter.invoke()
     
-    output_data = interpreter.get_tensor(output_details[0]['index'])
+    output_data = interpreter.get_tensor(output_tensor[0]['index'])
     classes = ['ComMarca', 'SemMarca']
 
     df = pd.DataFrame()
