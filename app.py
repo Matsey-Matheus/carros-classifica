@@ -51,8 +51,8 @@ def previsao(interpreter,image):
     interpreter.invoke()
     
     output_data = interpreter.get_tensor(output_details[0]['index'])
-    classes = ['ComMarca', 'SemMarca']
 
+    classes = ['ComMarca', 'SemMarca']
     df = pd.DataFrame()
     df['classes'] = classes
     df['probabilidades (%)'] = 100*output_data[0]
