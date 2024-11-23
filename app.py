@@ -27,7 +27,20 @@ def carrega_imagem():
         st.success('Imagem foi carregada com sucesso')
 
         image = np.array(image, dtype=np.float32)
-        image = image / 255.0
+
+        imagem_comprimida = np.zeros_like(image)
+
+        # Encontrar o índice do maior canal para cada pixel
+        indices_maiores = np.argmax(image, axis=-1)
+
+        # Ajustar os valores para que apenas o maior canal permaneça
+        for i, cor in enumerate(["R", "G", "B"]):
+            imagem_comprimida[indices_maiores == i, i] = image[indices_maiores == i, i]
+
+        # Converter de volta para imagem
+        imagem_resultado = Image.fromarray(imagem_comprimida)
+
+        image = imagem_resultado / 255.0
         image = np.expand_dims(image, axis=0)
 
         return image
