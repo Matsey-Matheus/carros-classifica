@@ -36,6 +36,8 @@ def previsao(interpreter,image):
 
     input_details = interpreter.get_input_details()
     output_details = interpreter.get_output_details()
+
+    print(input_details)
     
     interpreter.set_tensor(input_details[0]['index'],image) 
     
