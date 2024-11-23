@@ -9,8 +9,8 @@ import plotly.express as px
 
 @st.cache_resource
 def carrega_modelo():
-    #https://drive.google.com/file/d/1bCwVBx0mPdVwaOgBaAwQ4MW-avNnWtK_/view?usp=drive_link
-    url = 'https://drive.google.com/uc?id=1bCwVBx0mPdVwaOgBaAwQ4MW-avNnWtK_'
+    #https://drive.google.com/file/d/1YPvmOZsgdM41lLDO3Tdd6Yzbc6UlaqlW/view?usp=drive_link
+    url = 'https://drive.google.com/uc?id=1YPvmOZsgdM41lLDO3Tdd6Yzbc6UlaqlW'
     gdown.download(url, 'modelo_quantizado16bits.tflite')
     interpreter = tf.lite.Interpreter(model_path='modelo_quantizado16bits.tflite')
     interpreter.allocate_tensors()
@@ -37,7 +37,7 @@ def previsao(interpreter,image):
     input_details = interpreter.get_input_details()
     output_details = interpreter.get_output_details()
     
-    #interpreter.set_tensor(input_details[0]['index'],image) 
+    interpreter.set_tensor(input_details[0]['index'],image) 
     
     interpreter.invoke()
     
