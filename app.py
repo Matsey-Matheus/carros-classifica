@@ -23,24 +23,18 @@ def carrega_imagem():
         image_data = uploaded_file.read()
         image = Image.open(io.BytesIO(image_data))
 
+        # Garantir que a imagem tenha 3 canais (convertendo para RGB)
+        if image.mode != "RGB":
+            image = image.convert("RGB")
+
         st.image(image)
         st.success('Imagem foi carregada com sucesso')
 
+        # Converter para array NumPy com normalização
         image = np.array(image, dtype=np.float32)
+        image = image / 255.0
 
-        imagem_comprimida = np.zeros_like(image)
-
-        # Encontrar o índice do maior canal para cada pixel
-        indices_maiores = np.argmax(image, axis=-1)
-
-        # Ajustar os valores para que apenas o maior canal permaneça
-        for i, cor in enumerate(["R", "G", "B"]):
-            imagem_comprimida[indices_maiores == i, i] = image[indices_maiores == i, i]
-
-        # Converter de volta para imagem
-        imagem_resultado = Image.fromarray(imagem_comprimida)
-
-        image = imagem_resultado / 255.0
+        # Adicionar dimensão extra (para batch)
         image = np.expand_dims(image, axis=0)
 
         return image
