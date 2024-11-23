@@ -48,7 +48,7 @@ def previsao(interpreter,image):
     df['classes'] = classes
     df['probabilidades (%)'] = 100*output_data[0]
     
-    fig = px.bar
+    fig = px.bar(df,y='classes',x='probabilidades (%)',  orientation='h', text='probabilidades (%)', title='Sla fodasse kkk teste sla')
 
 def main():
     st.set_page_config(
